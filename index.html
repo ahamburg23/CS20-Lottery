@@ -1,0 +1,87 @@
+<html>
+<body>
+
+    <script language="javascript">
+        function getRandomInt(max) {
+            return Math.floor(Math.random() * max);
+        }
+
+        winning = prompt("Enter winning numbers", "1 2 3 4 5");
+        lucky = prompt("Enter winning lucky number", "1")
+
+        // Set and print the random pick and lucky number
+        document.write("Random pick: ");
+        var random = new Array(5);
+        for (var i = 0; i < 5; i++) {
+            random[i] = getRandomInt(48) + 1;
+            document.write(random[i] + " ");
+        }
+        randLucky = getRandomInt(18) + 1;
+        document.write("lucky " + randLucky + "<br>");
+
+        // Sort and print the random numbers and lucky number
+        random.sort(function(a, b){return a - b});
+        document.write("Pick sorted: ");
+        for (var i = 0; i < 5; i++) {
+            document.write(random[i] + " ");
+        }
+        document.write("lucky " + randLucky + "<br>");
+
+        // Sort and print the winning numbers and lucky number
+        winning = winning.split(' ');
+        winning.sort(function(a, b){return a - b});
+        document.write("Winning numbers sorted: ");
+        for (var i = 0; i < 5; i++) {
+            document.write(winning[i] + " ");
+        }
+        document.write("lucky " + lucky + "<br>");
+
+        numMatch = 0;
+        i = j = 0;
+        while (i < 5 && j < 5) {
+            if (random[i] == winning[j]) {
+                numMatch++;
+                i++;
+                j++;
+            } else if (random[i] < winning[j]) {
+                i++;
+            } else {
+                j++;
+            }
+        }
+
+        luckyMatch = lucky == randLucky;
+
+        document.write("Number matching: " + numMatch + "<br>");
+        document.write("Lucky ball " + 
+                       (luckyMatch ? "matches" : "does not match") + 
+                       "<br>");
+        var winnings;
+        switch (numMatch) {
+            case 0:
+                winnings = luckyMatch ? "$4" : "$0";
+                break;
+            case 1:
+                winnings = luckyMatch ? "$6" : "$0";
+                break;
+            case 2:
+                winnings = luckyMatch ? "$25" : "$3";
+                break;
+            case 3:
+                winnings = luckyMatch ? "$150" : "$20";
+                break;
+            case 4:
+                winnings = luckyMatch ? "$5000" : "$200";
+                break;
+            case 5:
+                winnings = luckyMatch ? "$7,000 a WEEK for LIFE" : 
+                                        "$25,000 a YEAR for LIFE";
+                break;
+        }
+
+        document.write("Your winnings: " + winnings);
+
+            
+    </script>
+</body>
+</html>
